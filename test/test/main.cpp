@@ -1,6 +1,7 @@
 #include <iostream>
 
 void ShowPercentage(int percentage);
+int scoreCalcul(int kills, int deaths);
 
 int main()
 {
@@ -176,11 +177,25 @@ int main()
 
 
     /**/
-    int missionAmount;
+    int killsFirstRound;
+    int deathsFirstRound;
+    int killsSecondRound;
+    int deathsSecondRound;
+    int totalScore = 0;
 
-    std::cout << "Nombre de missions ? \n-> ";
-    std::cin >> missionAmount;
-    
+    std::cout << "Kills (manche 1) ? \n-> ";
+    std::cin >> killsFirstRound;
+    std::cout << "Deaths (manche 1) ? \n-> ";
+    std::cin >> deathsFirstRound;
+
+    std::cout << "Kills (manche 2) ? \n-> ";
+    std::cin >> killsSecondRound;
+    std::cout << "Deaths (manche 2) ? \n-> ";
+    std::cin >> deathsSecondRound;
+
+    totalScore = scoreCalcul(killsFirstRound, deathsFirstRound) + scoreCalcul(killsSecondRound, deathsSecondRound);
+
+    std::cout << "Score total : " << totalScore << std::endl;
 
 
 
