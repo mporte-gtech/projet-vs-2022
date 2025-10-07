@@ -1,5 +1,7 @@
 #include <iostream>
 
+void ShowPercentage(int percentage);
+
 int main()
 {
     /*int fileOriginalSize = 0;
@@ -77,7 +79,7 @@ int main()
     int currentBooked;
     int premiumCard;
 
-    std::cout << "Entrée : Nombre d’emprunts en cours ? \n-> ";
+    std::cout << "Nombre d’emprunts en cours ? \n-> ";
     std::cin >> currentBooked;
 
     if (currentBooked < 3)
@@ -86,7 +88,7 @@ int main()
     }
     else
     {
-        std::cout << "Entree : Carte premium ? 1 ou 0 \n-> ";
+        std::cout << "Carte premium ? 1 ou 0 \n-> ";
         std::cin >> premiumCard;
 
         if (premiumCard == 1 && currentBooked < 5)
@@ -100,7 +102,110 @@ int main()
     }*/
 
 
+    /*
+    int firstInput;
+    int secondInput;
+    char calcul;
+    int result = NULL;
+
+    std::cout << "a ? \n-> ";
+    std::cin >> firstInput;
+
+    std::cout << "b ? \n-> ";
+    std::cin >> secondInput;
+
+    std::cout << "operateur (+ - * /) ? \n-> ";
+    std::cin >> calcul;
+
+    if (calcul == '+')
+    {
+        result = firstInput + secondInput;
+    }
+    else if (calcul == '-')
+    {
+        result = firstInput - secondInput;
+    }
+    else if (calcul == '*')
+    {
+        result = firstInput * secondInput;
+    }
+    else if (calcul == '/')
+    {
+        result = firstInput / secondInput;
+    }
+
+    std::cout << firstInput << " " << calcul << " " << secondInput << " = " << result << std::endl;*/
+
+
+    /*
+    int lastInput = -1;
+
+    while (lastInput < 0)
+    {
+        std::cout << "Nombre ? \n-> ";
+        std::cin >> lastInput;
+    }
+
+    std::cout << "Dernier nombre saisi : " << lastInput << std::endl;*/
+
+    /*
+    int missionAmount;
+    int scoreMission;
+    int totalScore = 0;
+
+    std::cout << "Nombre de missions ? \n-> ";
+    std::cin >> missionAmount;
+
+    for (int i = 1; i <= missionAmount; i++)
+    {
+        std::cout << "Score de la mission " << i << " ? \n->";
+        std::cin >> scoreMission;
+
+        totalScore += scoreMission;
+    }
+
+    std::cout << "Score total : " << totalScore << std::endl;*/
+    
+    /*
+    int percentage;
+
+    std::cout << "Pourcentage ? \n-> ";
+    std::cin >> percentage;
+
+    ShowPercentage(percentage);*/
+
+
+    /**/
+    int missionAmount;
+
+    std::cout << "Nombre de missions ? \n-> ";
+    std::cin >> missionAmount;
+    
+
 
 
     return 0;
 }
+
+void ShowPercentage(int percentage)
+{
+    std::cout << "[";
+
+    for (int i = 10; i <= percentage && i <= 100; i +=10)
+    {
+        std::cout << "#";
+    }
+    for (int i = percentage; i < 100; i += 10)
+    {
+        std::cout << ".";
+    }
+
+    std::cout << "] " << percentage << "%" << std::endl;
+}
+
+int scoreCalcul(int kills, int deaths)
+{
+    return kills * 50 - deaths * 30;
+}
+
+

@@ -16,7 +16,6 @@ int main()
 	// Partie 1 , Mini-projet , Jeu du Plus ou Moins
 	std::cout << "Partie 1 , Mini-projet , Jeu du Plus ou Moins" << std::endl;
 
-	srand(time(NULL));
 	int isReplaying = 1;
 
 	while (isReplaying == 1)
@@ -29,6 +28,7 @@ int main()
 
 int GenerateRandomNumber(int min, int max)
 {
+	srand(time(NULL));
 	return rand() % (max - min + 1) + min;
 }
 
