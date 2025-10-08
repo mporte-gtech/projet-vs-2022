@@ -34,13 +34,13 @@ int GenerateRandomNumber(int min, int max)
 
 int GetPlayerGuess()
 {
-	int askedNumber = NULL;
+	int askedNumber;
 
-	while (!askedNumber || !(1 <= askedNumber <= 100))
+	do
 	{
 		std::cout << "Saisir un nombre entre 1 et 100 : \n-> ";
 		std::cin >> askedNumber;
-	}
+	} while (!(1 <= askedNumber <= 100));
 
 	return askedNumber;
 }
@@ -96,7 +96,7 @@ int PlayGame()
 		}
 	}
 
-	if (attemptsAmount == 0 && (checkedGuess != NULL && checkedGuess != 0))
+	if (attemptsAmount == 0 && checkedGuess != 0)
 	{
 		std::cout << "Vous avez utilise tous vos essais, dommage..." << std::endl;
 	}
@@ -111,13 +111,13 @@ int PlayGame()
 
 int ChooseDifficulty()
 {
-	int difficultyChoice = NULL;
+	int difficultyChoice;
 
-	while (!difficultyChoice || difficultyChoice < 1 || 3 < difficultyChoice)
+	do
 	{
 		std::cout << "Choisir un niveau de difficulte (1 : facile, 2 : moyen, 3 : difficile) : \n-> ";
 		std::cin >> difficultyChoice;
-	}
+	} while (difficultyChoice < 1 || 3 < difficultyChoice);
 
 	return difficultyChoice;
 }

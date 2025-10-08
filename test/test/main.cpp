@@ -220,7 +220,19 @@ void ShowPercentage(int percentage)
 
 int scoreCalcul(int kills, int deaths)
 {
-    return kills * 50 - deaths * 30;
+    int points = kills * 50 - deaths * 30;
+
+    if (points < 0)
+    {
+        points = 0;
+    }
+
+    if (points > 1000)
+    {
+        points = 1000;
+    }
+
+    return ;
 }
 
 
