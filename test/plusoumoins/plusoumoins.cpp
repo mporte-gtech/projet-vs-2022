@@ -67,7 +67,7 @@ int PlayGame()
 	int mysteryNumber = GenerateRandomNumber(1, 100);
 	int attemptAmount = 5;
 	int playerGuess = 0;
-	int checkedGuess;
+	int checkedGuess = NULL;
 	int difficulty;
 	int attemptsAmount;
 	int isReplaying;
@@ -96,7 +96,7 @@ int PlayGame()
 		}
 	}
 
-	if (attemptsAmount == 0)
+	if (attemptsAmount == 0 && (checkedGuess != NULL && checkedGuess != 0))
 	{
 		std::cout << "Vous avez utilise tous vos essais, dommage..." << std::endl;
 	}
