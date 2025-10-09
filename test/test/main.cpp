@@ -176,7 +176,7 @@ int main()
     ShowPercentage(percentage);*/
 
 
-    /**/
+    /*
     int killsFirstRound;
     int deathsFirstRound;
     int killsSecondRound;
@@ -195,7 +195,18 @@ int main()
 
     totalScore = scoreCalcul(killsFirstRound, deathsFirstRound) + scoreCalcul(killsSecondRound, deathsSecondRound);
 
-    std::cout << "Score total : " << totalScore << std::endl;
+    std::cout << "Score total : " << totalScore << std::endl;*/
+
+
+    /**/
+    int testValMax = 2147483647;
+    int* testPointeur = &testValMax;
+
+    testValMax++;
+
+    std::cout << testValMax << std::endl;
+    std::cout << &testValMax << std::endl;
+    std::cout << testPointeur << std::endl;
 
 
 
@@ -232,7 +243,7 @@ int scoreCalcul(int kills, int deaths)
         points = 1000;
     }
 
-    return ;
+    return points;
 }
 
 

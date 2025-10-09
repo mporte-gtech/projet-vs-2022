@@ -71,6 +71,7 @@ int PlayGame()
 	int difficulty;
 	int attemptsAmount;
 	int isReplaying;
+	int numberDifference;
 
 	difficulty = ChooseDifficulty();
 	attemptsAmount = GetAttemptsAmount(difficulty);
@@ -93,6 +94,34 @@ int PlayGame()
 		{
 			std::cout << "Bravo, vous avez trouve le nombre mystere !" << std::endl;
 			break;
+		}
+
+		numberDifference = mysteryNumber - playerGuess;
+
+		if (numberDifference < 0)
+		{
+			numberDifference = numberDifference * -1;
+		}
+
+		if (numberDifference <= 5)
+		{
+			std::cout << "tres proche" << std::endl;
+		}
+		else if (5 < numberDifference && numberDifference <= 15)
+		{
+			std::cout << "proche" << std::endl;
+		}
+		else if (15 < numberDifference && numberDifference <= 25)
+		{
+			std::cout << "assez proche" << std::endl;
+		}
+		else if (50 < numberDifference)
+		{
+			std::cout << "tres loin" << std::endl;
+		}
+		else
+		{
+			std::cout << "loin" << std::endl;
 		}
 	}
 
