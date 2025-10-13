@@ -3,6 +3,51 @@
 void ShowPercentage(int percentage);
 int scoreCalcul(int kills, int deaths);
 
+void ShowPercentage(int percentage)
+{
+    std::cout << "[";
+
+    for (int i = 10; i <= percentage && i <= 100; i += 10)
+    {
+        std::cout << "#";
+    }
+    for (int i = percentage; i < 100; i += 10)
+    {
+        std::cout << ".";
+    }
+
+    std::cout << "] " << percentage << "%" << std::endl;
+}
+
+int scoreCalcul(int kills, int deaths)
+{
+    int points = kills * 50 - deaths * 30;
+
+    if (points < 0)
+    {
+        points = 0;
+    }
+
+    if (points > 1000)
+    {
+        points = 1000;
+    }
+
+    return points;
+}
+
+int GetLength(const char* str)
+{
+    int length = 0;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        length++;
+    }
+
+    return length;
+}
+
 int main()
 {
     /*int fileOriginalSize = 0;
@@ -198,7 +243,7 @@ int main()
     std::cout << "Score total : " << totalScore << std::endl;*/
 
 
-    /**/
+    /*
     int testValMax = 2147483647;
     int* testPointeur = &testValMax;
 
@@ -206,44 +251,36 @@ int main()
 
     std::cout << testValMax << std::endl;
     std::cout << &testValMax << std::endl;
-    std::cout << testPointeur << std::endl;
+    std::cout << testPointeur << std::endl;*/
 
+
+    /*
+    int tableSize;
+
+    std::cout << "Taille du tableau ? \n-> ";
+    std::cin >> tableSize;
+
+    int* customTable = (int*) malloc(sizeof(int) * tableSize);
+
+    if (customTable == nullptr) exit(1);
+
+    for (int i = 0; i < tableSize; i++)
+    {
+        customTable[i] = i;
+    }
+
+    free(customTable);
+    customTable = nullptr;*/
+
+
+    /**/
+    const char* string = "Hello";
+    int iLength = GetLength(string);
+
+    std::cout << iLength;
 
 
     return 0;
-}
-
-void ShowPercentage(int percentage)
-{
-    std::cout << "[";
-
-    for (int i = 10; i <= percentage && i <= 100; i +=10)
-    {
-        std::cout << "#";
-    }
-    for (int i = percentage; i < 100; i += 10)
-    {
-        std::cout << ".";
-    }
-
-    std::cout << "] " << percentage << "%" << std::endl;
-}
-
-int scoreCalcul(int kills, int deaths)
-{
-    int points = kills * 50 - deaths * 30;
-
-    if (points < 0)
-    {
-        points = 0;
-    }
-
-    if (points > 1000)
-    {
-        points = 1000;
-    }
-
-    return points;
 }
 
 
