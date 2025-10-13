@@ -1,20 +1,290 @@
-// p2f6.cpp : Ce fichier contient la fonction 'main'. L'ex√©cution du programme commence et se termine √† cet endroit.
-//
-
 #include <iostream>
+
+char* ConcatenateStrings(char* firstString, char* secondString);
+int FindCharacter(char* firstString, char searchingChar);
+bool CompareStrings(char* firstString, char* secondString, bool caseSensitive);
+int CountCharacterFrequency(char* countFromWord, char letterToCount);
+bool IsPalindrome(char* string);
+char* Substring(char* string, int startingPosition, int length);
+bool ContainsSequence(char* stringContainer, char* stringContained);
+void ToLowerCase(char* string);
+void ToUpperCase(char* string);
+char* RemoveSpaces(char* string);
+
+char* ConcatenateStrings(char* firstString, char* secondString)
+{
+	int lengthFirst = std::strlen(firstString);
+	int lengthSecond = std::strlen(secondString);
+	char* newString = (char*)malloc(sizeof(char) * (lengthFirst + lengthSecond + 1));
+
+	if (newString == nullptr)
+		exit(1);
+
+	for (int i = 0; i < lengthFirst; i++)
+	{
+		newString[i] = firstString[i];
+	}
+	for (int i = 0; i < lengthSecond; i++)
+	{
+		newString[i + lengthFirst] = secondString[i];
+	}
+	newString[lengthFirst + lengthSecond - 2] = '\0';
+
+	return newString;
+}
+
+int FindCharacter(char* string, char searchingChar)
+{
+	int stringLength = std::strlen(string);
+
+	for (int i = 0; i < stringLength; i++)
+	{
+		if (string[i] == searchingChar)
+			return i;
+	}
+
+	return -1;
+}
+
+bool CompareStrings(char* firstString, char* secondString, bool caseSensitive)
+{
+	if (caseSensitive)
+	{
+		if (firstString == secondString)
+		{
+			return false;
+		}
+		else
+			return true;
+	}
+	else
+	{
+		if (tolower(*firstString) == tolower(*secondString))
+		{
+			return false;
+		}
+		else
+			return true;
+	}
+
+}
+
+int CountCharacterFrequency(char* countFromWord, char letterToCount)
+{
+	int stringLength = std::strlen(countFromWord);
+	int letterAmount = 0;
+
+	for (int i = 0; i < stringLength; i++)
+	{
+		if (countFromWord[i] == letterToCount)
+			letterAmount++;
+	}
+
+	return letterAmount;
+}
+
+bool IsPalindrome(char* string)
+{
+	int stringLength = std::strlen(string);;
+
+	for (int i = 0; i < (stringLength / 2); i++)
+	{
+		if (tolower(string[i]) != tolower(string[stringLength - 1 - i]))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+char* Substring(char* string, int startingPosition, int length)
+{
+	char* subString = (char*)malloc(sizeof(char) * (length + 1));
+
+	if (subString == nullptr)
+		exit(1);
+
+	for (int i = 0; i < length; i++)
+	{
+		subString[i] = string[i + startingPosition];
+	}
+	subString[length] = '\0';
+
+	return subString;
+
+}
+
+bool ContainsSequence(char* stringContainer, char* stringContained)
+{
+	return false;
+}
+
+
+void ToLowerCase(char* string)
+{
+	int stringLength = std::strlen(string);
+
+	for (int i = 0; i < stringLength; i++)
+	{
+		string[i] = tolower(string[i]);
+	}
+}
+
+void ToUpperCase(char* string)
+{
+	int stringLength = std::strlen(string);
+
+	for (int i = 0; i < stringLength; i++)
+	{
+		string[i] = toupper(string[i]);
+	}
+}
+
+char* RemoveSpaces(char* string)
+{
+	int stringLength = std::strlen(string);
+	int spaceAmount = CountCharacterFrequency(string, ' ');
+	char* noSpaceString = (char*)malloc(sizeof(char) * (stringLength - spaceAmount + 1));
+
+	if (noSpaceString == nullptr)
+		exit(1);
+
+	int backtrack = 0;
+	for (int i = 0; i < stringLength; i++)
+	{
+		if (string[i] == ' ')
+		{
+			backtrack++;
+		}
+		else
+		{
+			noSpaceString[i] = string[i - backtrack];
+		}
+
+	}
+	noSpaceString[std::strlen(noSpaceString)] = '\0';
+
+	return noSpaceString;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	// Exercice 1 ó ConcatÈnation de chaÓnes
+	std::cout << "Exercice 1 , Concatenation de chaines" << std::endl;
+
+	char hello[] = "Hello";
+	char world[] = "world";
+
+	char* concatenated = ConcatenateStrings(hello, world);
+
+	int concatenatedLength = std::strlen(concatenated);
+
+	std::cout << "" << concatenated << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 2 ó Recherche díun caractËre
+	std::cout << "Exercice 2 , Recherche d un caractere" << std::endl;
+
+	char findFromWord[] = "abcdef";
+	char letterToFind;
+
+	std::cout << "Lettre a trouver ? \n-> ";
+	std::cin >> letterToFind;
+
+	int index = FindCharacter(findFromWord, letterToFind);
+
+	std::cout << "Indice : " << index << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 3 ó Comparaison de chaÓnes
+	std::cout << "Exercice 3 , Comparaison de chaines" << std::endl;
+
+	char test[] = "test";
+	char testMaj[] = "Test";
+
+	std::cout << "case sensitive : " << (CompareStrings(test, testMaj, true) ? "different" : "identique") << std::endl;
+
+	std::cout << "pas case sensitive : " << (CompareStrings(test, testMaj, false) ? "different" : "identique") << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 4 ó FrÈquence díun caractËre
+	std::cout << "Exercice 4 , Frequence d un caractere" << std::endl;
+
+	char countFromWord[] = "hello world";
+	char letterToCount;
+
+	std::cout << "Lettre a compter ? \n-> ";
+	std::cin >> letterToCount;
+
+	int frequency = CountCharacterFrequency(countFromWord, letterToCount);
+
+	std::cout << "Occurrences : " << frequency << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 5 ó VÈrification de palindrome
+	std::cout << "Exercice 5 , Verification de palindrome" << std::endl;
+
+	char testPalyndrome[] = "Radar";
+
+	bool isPal = IsPalindrome(testPalyndrome);
+
+	std::cout << "Palyndrome : " << (isPal ? "oui" : "non") << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 6 ó Extraction díun sous-texte
+	std::cout << "Exercice 6 , Extraction d un sous-texte" << std::endl;
+
+	char subStrString[] = "abcdef";
+	int startingPosition;
+	int length;
+
+	std::cout << "Depart ? \n-> ";
+	std::cin >> startingPosition;
+
+	std::cout << "Longueur ? \n-> ";
+	std::cin >> length;
+
+	char* output = Substring(subStrString, startingPosition, length);
+
+	std::cout << output << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 7 ó Recherche díune sÈquence
+	std::cout << "Exercice 7  , Recherche d une sequence" << std::endl;
+
+	char longString[] = "aaaabaababb";
+	char shortString[] = "bab";
+
+	std::cout << "Contient : " << (ContainsSequence(longString, shortString) ? "oui" : "non") << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 8 ó Conversion de casse
+	std::cout << "Exercice 8  , Conversion de casse" << std::endl;
+
+	char changeCase[] = "Bonjour Le Monde";
+
+	std::cout << changeCase << std::endl;
+	ToUpperCase(changeCase);
+	std::cout << changeCase << std::endl;
+	ToLowerCase(changeCase);
+	std::cout << changeCase << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 9 ó Suppression des espaces
+	std::cout << "Exercice 9  , Suppression des espaces" << std::endl;
+
+	char spaceDeletion[] = "a b c d";
+
+	char* spacesRemoved = RemoveSpaces(spaceDeletion);
+
+	std::cout << spacesRemoved << std::endl;
 }
-
-// Ex√©cuter le programme¬†: Ctrl+F5 ou menu D√©boguer¬†> Ex√©cuter sans d√©bogage
-// D√©boguer le programme¬†: F5 ou menu D√©boguer¬†> D√©marrer le d√©bogage
-
-// Astuces pour bien d√©marrer¬†: 
-//   1. Utilisez la fen√™tre Explorateur de solutions pour ajouter des fichiers et les g√©rer.
-//   2. Utilisez la fen√™tre Team Explorer pour vous connecter au contr√¥le de code source.
-//   3. Utilisez la fen√™tre Sortie pour voir la sortie de la g√©n√©ration et d'autres messages.
-//   4. Utilisez la fen√™tre Liste d'erreurs pour voir les erreurs.
-//   5. Acc√©dez √† Projet¬†> Ajouter un nouvel √©l√©ment pour cr√©er des fichiers de code, ou √† Projet¬†> Ajouter un √©l√©ment existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, acc√©dez √† Fichier¬†> Ouvrir¬†> Projet et s√©lectionnez le fichier .sln.
