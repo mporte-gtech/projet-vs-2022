@@ -75,7 +75,6 @@ int FindClosestElement(int* array, int size, int referenceValue)
 
 void RotateArrayRight(int* array, int size)
 {
-	std::cout << size << std::endl;
 	int temp = array[size-1];
 
 	for (int i = size-1; i > 0 ; i--)
