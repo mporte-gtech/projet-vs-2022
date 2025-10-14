@@ -10,6 +10,7 @@ bool ContainsSequence(char* stringContainer, char* stringContained);
 void ToLowerCase(char* string);
 void ToUpperCase(char* string);
 char* RemoveSpaces(char* string);
+char* ReverseString(char* string);
 
 char* ConcatenateStrings(char* firstString, char* secondString)
 {
@@ -117,6 +118,25 @@ char* Substring(char* string, int startingPosition, int length)
 
 bool ContainsSequence(char* stringContainer, char* stringContained)
 {
+	int lengthContainer = std::strlen(stringContainer);
+	int lengthContained = std::strlen(stringContained);
+	int lengthTryContains = 0;
+
+	for (int i = 0; i < lengthContainer; i++)
+	{
+		if (stringContainer[i] == stringContained[lengthTryContains])
+		{
+			lengthTryContains++;
+		}
+		else
+		{
+			lengthTryContains = 0;
+		}
+
+		if (lengthTryContains == lengthContained)
+			return true;
+	}
+
 	return false;
 }
 
@@ -159,14 +179,31 @@ char* RemoveSpaces(char* string)
 		}
 		else
 		{
-			noSpaceString[i] = string[i - backtrack];
+			noSpaceString[i - backtrack] = string[i];
 		}
-
 	}
-	noSpaceString[std::strlen(noSpaceString)] = '\0';
+	noSpaceString[stringLength - spaceAmount] = '\0';
 
 	return noSpaceString;
 }
+
+char* ReverseString(char* string)
+{
+	int stringLength = std::strlen(string);
+	char* reversedString = (char*)malloc(sizeof(char) * (stringLength + 1));
+
+	if (reversedString == nullptr)
+		exit(1);
+
+	for (int i = 0; i < stringLength; i++)
+	{
+		reversedString[i] = string[stringLength - 1 - i];
+	}
+	reversedString[stringLength] = '\0';
+
+	return reversedString;
+}
+
 
 int main()
 {
@@ -287,4 +324,15 @@ int main()
 	char* spacesRemoved = RemoveSpaces(spaceDeletion);
 
 	std::cout << spacesRemoved << std::endl;
+
+
+	std::cout << std::endl;
+	// Exercice 10 — Inversion d’une chaîne
+	std::cout << "Exercice 10  , Inversion d une chaine" << std::endl;
+
+	char normalString[] = "Bonjour";
+
+	char* reversedString = ReverseString(normalString);
+
+	std::cout << reversedString << std::endl;
 }
