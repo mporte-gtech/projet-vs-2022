@@ -50,7 +50,7 @@ int FindClosestElement(int* array, int size, int referenceValue)
 	int closestElement = NULL;
 	int smallestdiff = NULL;
 
-	for (int i = 0; i < size-1; i++)
+	for (int i = 0; i <= size-1; i++)
 	{
 		int diff;
 

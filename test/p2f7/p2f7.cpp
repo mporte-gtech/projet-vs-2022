@@ -1,9 +1,9 @@
 #include <iostream>
 
-int GetSecretWordIndex(std::string*, int* guessedWords, int wordsAmount);
-bool IsIndexUsed(int index, int* guessedWords);
-void AddUsedIndex(int* usedWordsList, int usedWordIndex);
-void GetPlayerGuess();
+int GetSecretWordIndex(int* guessedWordsIndexes, int wordsAmount);
+bool IsIndexUsed(int* guessedWordsIndexes, int wordIndex, int wordsAmount);
+void AddUsedIndex(int* usedWordsList, int usedWordIndex, int wordsAmount);
+std::string GetPlayerGuess(int wordLength);
 bool CompareWords(std::string* guessAttempt, std::string* secretWord, int wordLength);
 void PlayOneWord();
 
@@ -16,11 +16,11 @@ int main()
 	int wordsAmount = sizeof(availableWords) / sizeof(*availableWords);
 
 	srand(time(NULL));
-	int secretWordIndex = GetSecretWordIndex(availableWords, guessedWordsIndexes, wordsAmount);
+	int secretWordIndex = GetSecretWordIndex(guessedWordsIndexes, wordsAmount);
 
 }
 
-int GetSecretWordIndex(std::string* wordsToGuess, int* guessedWords, int wordsAmount)
+int GetSecretWordIndex(int* guessedWordsIndexes, int wordsAmount)
 {
 	int wordToGuessIndex = NULL;
 	int remainingWords = 0;
@@ -49,18 +49,56 @@ int GetSecretWordIndex(std::string* wordsToGuess, int* guessedWords, int wordsAm
 	return wordToGuessIndex;
 }
 
-bool IsIndexUsed(int index, int* guessedWords)
+bool IsIndexUsed(int* guessedWordsIndexes, int wordIndex, int wordsAmount)
 {
-	if (guessedWords[index] == 0)
+	for (int i = 0; i < wordsAmount; i++)
 	{
-		return false;
+		if (guessedWordsIndexes[i] == wordIndex)
+		{
+			return true;
+		}
 	}
-	return true;
+	return false;
 }
 
-void AddUsedIndex(int* usedWordsList, int usedWordIndex)
+void AddUsedIndex(int* usedWordsList, int usedWordIndex, int wordsAmount)
 {
-	usedWordsList[usedWordIndex] = 1;
+	for (int i = 0; i < wordsAmount; i++)
+	{
+		if (usedWordsList[i] == NULL)
+		{
+			usedWordsList[i] = usedWordIndex;
+			return;
+		}
+	}
+}
+
+std::string GetPlayerGuess(int wordLength)
+{
+	std::string stringInput = "";
+	bool validWord = false;
+
+	do
+	{
+		std::cout << "Entrez un mot de " << wordLength << " lettres\n-> ";
+		std::cin >> stringInput;
+
+		if (stringInput.length() == wordLength)
+		{
+			validWord = true;
+		}
+
+		for (int i = 0; i < wordLength; i++)
+		{
+			if (toupper(stringInput[i]) == tolower(stringInput[i]))
+			{
+				validWord = false;
+			}
+		}
+
+	} while (validWord == false);
+
+	return stringInput;
 }
 
 bool CompareWords(std::string* guessAttempt, std::string* secretWord, int wordLength)
@@ -69,31 +107,30 @@ bool CompareWords(std::string* guessAttempt, std::string* secretWord, int wordLe
 
 	for (int i = 0; i < wordLength; i++)
 	{
-		bool rightLetter = guessAttempt[i] == secretWord[i];
-		if (rightLetter)
-			guessedLetters++;
-
-		if (rightLetter)
+		if (guessAttempt[i] == secretWord[i])
 		{
-			// affiche vert
+			guessedLetters++;
+			std::cout << "\033[32m" << guessAttempt[i] << "\033[0m" << std::endl;
 		}
 		else
 		{
-			for (i = 0; i < strlen(guessAttempt); i++)
+			int isLetterInWord = NULL;
+
+			for (int a = 0; a < wordLength; a++)
 			{
-				if (foundalpha = isalpha(instring[i]))
+				if (secretWord[a] == guessAttempt[i])
 				{
-					break;
+					isLetterInWord = 1;
 				}
 			}
 
-			if ()
+			if (isLetterInWord != NULL)
 			{
-				// affiche jaune
+				std::cout << "\033[33m" << guessAttempt[i] << "\033[0m" << std::endl;
 			}
 			else
 			{
-				// affiche rouge
+				std::cout << "\033[31m" << guessAttempt[i] << "\033[0m" << std::endl;
 			}
 		}
 	}
