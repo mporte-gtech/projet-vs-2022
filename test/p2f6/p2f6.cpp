@@ -29,7 +29,7 @@ char* ConcatenateStrings(char* firstString, char* secondString)
 	{
 		newString[i + lengthFirst] = secondString[i];
 	}
-	newString[lengthFirst + lengthSecond - 2] = '\0';
+	newString[lengthFirst + lengthSecond] = '\0';
 
 	return newString;
 }
@@ -124,17 +124,32 @@ bool ContainsSequence(char* stringContainer, char* stringContained)
 
 	for (int i = 0; i < lengthContainer; i++)
 	{
-		if (stringContainer[i] == stringContained[lengthTryContains])
+		if (lengthContainer - i < lengthContained)
+			return false;
+
+		if (stringContainer[i] == stringContained[0])
 		{
-			lengthTryContains++;
+			lengthTryContains = 0;
+			for (int a = 0; a < lengthContained; a++)
+			{
+				if (stringContainer[i + a] == stringContained[a])
+				{
+					lengthTryContains++;
+				}
+				else
+				{
+					std::cout << std::endl;
+					break;
+				}
+
+				if (lengthTryContains == lengthContained)
+					return true;
+			}
 		}
 		else
 		{
 			lengthTryContains = 0;
 		}
-
-		if (lengthTryContains == lengthContained)
-			return true;
 	}
 
 	return false;

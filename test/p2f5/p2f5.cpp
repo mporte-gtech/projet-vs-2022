@@ -87,16 +87,11 @@ void RotateArrayRight(int* array, int size)
 
 void MoveZerosToEnd(int* array, int size)
 {
-	int zeroAmount = 0;
 	int lastIndex = 0;
 
 	for (int i = 0; i < size; i++)
 	{
-		if (array[i] == 0)
-		{
-			zeroAmount++;
-		}
-		else
+		if (array[i] != 0)
 		{
 			array[lastIndex] = array[i];
 			lastIndex++;
