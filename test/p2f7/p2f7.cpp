@@ -2,29 +2,33 @@
 
 int GetSecretWordIndex(int* guessedWordsIndexes, int wordsAmount);
 bool IsIndexUsed(int* guessedWordsIndexes, int wordIndex, int wordsAmount);
-void AddUsedIndex(int* usedWordsList, int usedWordIndex, int wordsAmount, int* foundWordsAmount);
-std::string GetPlayerGuess(int wordLength);
-bool CompareWords(std::string guessAttempt, std::string secretWord, int wordLength);
-void PlayOneWord(int maxTryAmount, int wordsAmount, int wordLength, int* foundWordsAmount, std::string* availableWords, int* guessedWordsIndexes);
+void AddUsedIndex(int* usedWordsList, int usedWordIndex, int wordsAmount);
+std::string GetPlayerGuess();
+bool CompareWords(std::string guessAttempt, std::string secretWord);
+void PlayOneWord(int wordsAmount, std::string* availableWords, int* guessedWordsIndexes);
+
+const int wordLength = 5;
+const int maxTryAmount = 6;
 
 int main()
 {
-	const int wordLength = 5;
-	const int maxTryAmount = 6;
 	std::string availableWords[] = {"pomme", "table", "livre", "chaud", "arbre"};
-	int guessedWordsIndexes[sizeof(int) * (sizeof(availableWords) / sizeof(*availableWords))] = { };
-	int wordsAmount = sizeof(availableWords) / sizeof(*availableWords);
-	int foundWordsAmount = 0;
+	const int wordsAmount = sizeof(availableWords) / sizeof(*availableWords);
+	int guessedWordsIndexes[wordsAmount] = { 0 };
+	int replay = 1;
 
 	srand(time(NULL));
 
-	std::cout << "-> WORDLE" << std::endl << std::endl;
-	do
+	std::cout << "-> WORDLE" << std::endl;
+	while (replay == 1)
 	{
-		std::cout << "Vous avez " << maxTryAmount << " tentatives pour trouver un mot de " << wordLength << " lettres." << std::endl;
+		std::cout << std::endl << "Vous avez " << maxTryAmount << " tentatives pour trouver un mot de " << wordLength << " lettres." << std::endl;
 		std::cout << "lettre \033[32mverte\033[0m -> lettre correcte\nlettre \033[33mjaune\033[0m -> lettre au mauvais endroit\nlettre \033[31mrouge\033[0m -> mauvaise lettre\n" << std::endl;
-		PlayOneWord(maxTryAmount, wordsAmount, wordLength, &foundWordsAmount, availableWords, guessedWordsIndexes);
-	} while (foundWordsAmount < wordsAmount);
+		PlayOneWord(wordsAmount, availableWords, guessedWordsIndexes);
+
+		std::cout << std::endl << "Voulez-vous rejouer ? (1 = oui, 0 = non)\n-> ";
+		std::cin >> replay;
+	}
 }
 
 int GetSecretWordIndex(int* guessedWordsIndexes, int wordsAmount)
@@ -73,22 +77,21 @@ bool IsIndexUsed(int* guessedWordsIndexes, int wordIndex, int wordsAmount)
 	return false;
 }
 
-void AddUsedIndex(int* guessedWordsIndexes, int usedWordIndex, int wordsAmount, int* foundWordsAmount)
+void AddUsedIndex(int* guessedWordsIndexes, int usedWordIndex, int wordsAmount)
 {
 	for (int i = 0; i < wordsAmount; i++)
 	{
 		if (guessedWordsIndexes[i] == NULL)
 		{
 			guessedWordsIndexes[i] = usedWordIndex;
-			*foundWordsAmount += 1;
 			return;
 		}
 	}
 }
 
-std::string GetPlayerGuess(int wordLength)
+std::string GetPlayerGuess()
 {
-	std::string stringInput = "azert";
+	std::string stringInput;
 	bool validWord = false;
 
 	do
@@ -114,9 +117,9 @@ std::string GetPlayerGuess(int wordLength)
 	return stringInput;
 }
 
-bool CompareWords(std::string guessAttempt, std::string secretWord, int wordLength)
+bool CompareWords(std::string guessAttempt, std::string secretWord)
 {
-	secretWord = "mmmee";
+	secretWord = "mmmee";//temp
 	int guessedLetters = 0;
 
 	for (int i = 0; i < wordLength; i++)
@@ -154,34 +157,38 @@ bool CompareWords(std::string guessAttempt, std::string secretWord, int wordLeng
 	return guessedLetters == wordLength ? true: false;
 }
 
-void PlayOneWord(int maxTryAmount, int wordsAmount, int wordLength, int* foundWordsAmount, std::string* availableWords, int* guessedWordsIndexes)
+void PlayOneWord(int wordsAmount, std::string* availableWords, int* guessedWordsIndexes)
 {
 	int secretWordIndex = GetSecretWordIndex(guessedWordsIndexes, wordsAmount);
+	int remainingTries = maxTryAmount;
 	if (secretWordIndex == -1)
-		return;
+	{
+		std::cout << std::endl << "Vous avez trouve tous les mots ! Bien joue" << std::endl;
+		exit(1);
+	}
 
 	std::string userWordInput;
 	bool isRightWord;
 
 	do
 	{
-		maxTryAmount--;
+		remainingTries--;
 		//std::cout << "secretWordIndex " << secretWordIndex << " - " << availableWords[secretWordIndex] << std::endl;
 
-		userWordInput = GetPlayerGuess(wordLength);
+		userWordInput = GetPlayerGuess();
 
-		isRightWord = CompareWords(userWordInput, availableWords[secretWordIndex], wordLength);
+		isRightWord = CompareWords(userWordInput, availableWords[secretWordIndex]);
 
 		if (isRightWord == true)
 		{
-			std::cout << "Le mot a ete trouve en " << maxTryAmount << " tentatives !" << std::endl;
-			AddUsedIndex(guessedWordsIndexes, secretWordIndex, wordsAmount, foundWordsAmount);
+			std::cout << "Le mot a ete trouve en " << maxTryAmount - remainingTries << " tentatives !" << std::endl;
+			AddUsedIndex(guessedWordsIndexes, secretWordIndex, wordsAmount);
 			return;
 		}
-	} while (maxTryAmount > 0);
+	} while (remainingTries > 0);
 
 	std::cout << std::endl;
 
 	std::cout << "Toutes les tentatives ont ete utilisees. Le mot n a pas ete trouve" << std::endl;
-	std::cout << "Le mot etait " << availableWords[secretWordIndex] << std::endl;
+	std::cout << "Le mot etait " << availableWords[secretWordIndex] << std::endl << std::endl;
 }

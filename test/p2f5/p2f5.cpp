@@ -47,8 +47,10 @@ int FindMaxIndex(int* array, int size)
 
 int FindClosestElement(int* array, int size, int referenceValue)
 {
-	int closestElement = NULL;
-	int smallestdiff = NULL;
+	int closestElement = array[0];
+	int smallestdiff = referenceValue - array[0];
+	if (smallestdiff < 0)
+		smallestdiff *= -1;
 
 	for (int i = 0; i <= size-1; i++)
 	{
@@ -63,7 +65,7 @@ int FindClosestElement(int* array, int size, int referenceValue)
 			diff = array[i] - referenceValue;
 		}
 
-		if (smallestdiff == NULL || diff < smallestdiff)
+		if (diff < smallestdiff)
 		{
 			closestElement = array[i];
 			smallestdiff = diff;
