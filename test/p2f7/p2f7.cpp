@@ -119,6 +119,7 @@ std::string GetPlayerGuess()
 
 bool CompareWords(std::string guessAttempt, std::string secretWord)
 {
+
 	secretWord = "mmmee";//temp
 	int guessedLetters = 0;
 

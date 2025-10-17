@@ -105,11 +105,10 @@ char* Substring(char* string, int startingPosition, int length)
 	if (subString == nullptr)
 		exit(1);
 
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < length && string[i] != '\0'; i++)
 	{
 		subString[i] = string[i + startingPosition];
 	}
-	subString[length] = '\0';
 
 	return subString;
 
