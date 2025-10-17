@@ -16,6 +16,7 @@ char* ConcatenateStrings(char* firstString, char* secondString)
 {
 	int lengthFirst = std::strlen(firstString);
 	int lengthSecond = std::strlen(secondString);
+
 	char* newString = (char*)malloc(sizeof(char) * (lengthFirst + lengthSecond + 1));
 
 	if (newString == nullptr)
@@ -36,9 +37,7 @@ char* ConcatenateStrings(char* firstString, char* secondString)
 
 int FindCharacter(char* string, char searchingChar)
 {
-	int stringLength = std::strlen(string);
-
-	for (int i = 0; i < stringLength; i++)
+	for (int i = 0; string[i] != '\0'; i++)
 	{
 		if (string[i] == searchingChar)
 			return i;

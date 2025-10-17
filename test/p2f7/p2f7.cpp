@@ -14,7 +14,7 @@ int main()
 {
 	std::string availableWords[] = {"pomme", "table", "livre", "chaud", "arbre"};
 	const int wordsAmount = sizeof(availableWords) / sizeof(*availableWords);
-	int guessedWordsIndexes[wordsAmount] = { 0 };
+	int guessedWordsIndexes[wordsAmount] = { -1 };
 	int replay = 1;
 
 	srand(time(NULL));
@@ -81,7 +81,7 @@ void AddUsedIndex(int* guessedWordsIndexes, int usedWordIndex, int wordsAmount)
 {
 	for (int i = 0; i < wordsAmount; i++)
 	{
-		if (guessedWordsIndexes[i] == NULL)
+		if (guessedWordsIndexes[i] == -1)
 		{
 			guessedWordsIndexes[i] = usedWordIndex;
 			return;
