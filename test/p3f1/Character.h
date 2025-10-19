@@ -2,7 +2,7 @@
 
 struct Character
 {
-	std::string name;
+	char* name;
 	int level, maxHP, currentHP;
 };
 
