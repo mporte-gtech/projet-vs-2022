@@ -13,5 +13,5 @@ void HealCharacter(Character* character, int amount)
 
 bool IsAlive(const Character* character)
 {
-	return character->currentHP > 0 ? true : false;
+	return character->currentHP > 0;
 }
