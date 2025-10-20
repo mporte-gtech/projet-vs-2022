@@ -44,7 +44,7 @@ bool AddItem(Inventory* inventory, Item* item)
 	return false;
 }
 
-bool FindItemByName(Inventory* inventory, char* itemName)
+bool FindItemByName(Inventory* inventory, const char* itemName)
 {
 	int inventorySize = inventory->inventorySize;
 
@@ -66,7 +66,6 @@ void DisplayInventory(Inventory* inventory)
 	for (int i = 0; i < inventorySize; i++)
 	{
 		Item* currentItem = &inventory->items[i];
-
-		std::cout << i + 1 << " - " << currentItem->name << "\nValeur : " << currentItem->goldValue << "\nNiveau requis : " << currentItem->useRequiredLevel << std::endl;
+		DisplayItem(currentItem);
 	}
 }
