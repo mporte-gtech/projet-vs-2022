@@ -5,29 +5,50 @@
 
 int main()
 {
+	bool replay = true;
+	int gameStep = 1;
+
+	do
+	{
+	
+		replay = AskReplay();
+	} while (replay);
 
     return 0;
 }
 
-void DisplayInterface(int step, Grid* grid)
+bool AskReplay()
+{
+	char isReplaying = 'n';
+
+	std::cout << "Rejouer ? (y/n)\n-> " << std::endl;
+	std::cin >> isReplaying;
+
+	return tolower(isReplaying) == 'y';
+}
+
+void GameLoop(int step, Grid* grid = NULL)
 {
 	std::cout << "Minesweeper" << std::endl;
 	std::cout << std::endl;
 
-	switch (step)
+	if (step == 1) // début de partie, demander difficulté
 	{
-		case 1:
-			break;
-		default:
-			break;
+
+	}
+	else if (step == 2) // affichage de la grille, et actions sur la grille
+	{
+		DisplayGrid(grid);
+		std::cout << std::endl;
+
+		std::cout << "Drapeaux : " << grid->availableFlags << " / " << grid->totalMinesAmount << std::endl;
+		std::cout << std::endl;
+	}
+	else if (step == 3) // demander à rejouer
+	{
+
 	}
 
-
-	DisplayGrid(grid);
-	std::cout << std::endl;
-
-	std::cout << "Drapeaux : " << grid->availableFlags << " / " << grid->totalMinesAmount << std::endl;
-	std::cout << std::endl;
 }
 
 int* AskCoordinates()

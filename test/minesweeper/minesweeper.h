@@ -1,7 +1,7 @@
 #pragma once
 #include "Grid.h"
 
-void DisplayInterface(Grid* grid);
+void GameLoop(int step, Grid* grid = NULL)
 
 int* AskCoordinates();
 
